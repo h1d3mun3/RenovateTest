@@ -1,0 +1,35 @@
+name: Unlock Xcode Dependencies 
+
+on: [ workflow_dispatch ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependencies:
+    runs-on: macos-latest
+
+    steps:
+      - name: Unlock SPM Version Lock
+        run: ./.github/scripts/unlockPackage.sh
+        shell: bash
+
+      - uses: actions/checkout@v2
+
+      - name: Resolve Dependencies
+        id: resolution
+        uses: GetSidetrack/action-xcodeproj-spm-update@main
+        with:
+          forceResolution: true
+          failWhenOutdated: false
+
+      - name: Create Pull Request
+        if: steps.resolution.outputs.dependenciesChanged == 'true'
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: 'dependencies/ios'
+          delete-branch: true
+          commit-message: 'Update Xcode Dependencies'
+          title: 'Updated Xcode Dependencies'
+
