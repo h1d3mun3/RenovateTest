@@ -11,11 +11,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
+
+      - uses: actions/checkout@v2
+
       - name: Unlock SPM Version Lock
         run: ./.github/scripts/unlockPackage.sh
         shell: bash
-
-      - uses: actions/checkout@v2
 
       - name: Resolve Dependencies
         id: resolution
