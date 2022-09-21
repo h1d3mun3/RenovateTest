@@ -25,6 +25,10 @@ jobs:
           forceResolution: true
           failWhenOutdated: false
 
+      - name: Reset Xcode Project to HEAD
+        run: ./.github/scripts/resetProject.sh
+        shell: bash
+
       - name: Create Pull Request
         if: steps.resolution.outputs.dependenciesChanged == 'true'
         uses: peter-evans/create-pull-request@v3
