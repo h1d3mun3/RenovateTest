@@ -1,0 +1,15 @@
+{
+  "packageRules": [
+    {
+      "groupName": "RxSwift",
+      "managers": [
+        "swift"
+      ],
+      "packageNames": [
+        "RxCocoa",
+        "RxRelay",
+        "RxSwift"
+      ]
+    }
+  ]
+}
